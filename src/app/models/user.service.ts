@@ -10,7 +10,8 @@ import { Helpers } from '../helpers/helpers';
 @Injectable()
 export class UserService extends BaseService {
   private pathAPI = this.config.setting['PathAPI'];
-  constructor(private http: HttpClient, private config: AppConfig, helper: Helpers) { super(helper); }
+  constructor(private https: HttpClient, private config: AppConfig, helpers: Helpers)
+   { super(helpers,https); }
   /** GET heroes from the server */
 //   getUsers (): Observable<User[]> {
 //     return this.http.get(this.pathAPI + 'user', super.header()).pipe(
@@ -19,7 +20,7 @@ export class UserService extends BaseService {
 //   }
 
 getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.pathAPI + 'user', super.header())
+    return this.https.get<User[]>(this.pathAPI + 'user', super.header())
       .pipe(
         map((data) => {
            //we can perform some transformation here

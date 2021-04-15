@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
-  { path: 'dashboard', component: DashboardComponent,canActivate:[AuthGuard]},
+  { path: 'dashboard', component: DashboardComponent},
   { path: 'users', component: UserComponent,canActivate:[AuthGuard]}
 ];
 

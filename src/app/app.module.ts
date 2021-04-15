@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';;
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeadComponent } from './layout/head.component';
 import { LeftPanelComponent } from './layout/left-panel.component'
@@ -17,7 +18,7 @@ import { DashboardComponent }   from './components/dashboard/dashboard.component
 import { UserComponent }      from './components/users/user.component';
 import { LoginComponent } from './components/account/login/login.component';
 import { Helpers } from './helpers/helpers';
-import {FormsModule} from '@angular/forms';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 
 // new code that works
 import { MatDialogModule } from '@angular/material/dialog';
@@ -61,6 +62,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     HttpClientModule,
     MatDialogModule,
     FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatIconModule,
     MatCardModule, 
@@ -73,7 +75,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     MatTableModule,
     MatMenuModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ToastrModule.forRoot()
   ],
   exports:[
     CommonModule,

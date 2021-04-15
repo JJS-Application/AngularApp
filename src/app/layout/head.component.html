@@ -1,7 +1,7 @@
 <div> 
   <mat-toolbar color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
-      <button mat-icon-button >
+      <button mat-icon-button mat-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
     </div>
@@ -11,13 +11,17 @@
     </a>
     <span class="example-spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
-      <a mat-button routerLink="/about-us">About us</a>
-      <a mat-button routerLink="/prices">Prices</a>
-      <a mat-button routerLink="/start-page">Start page</a>
-      <a mat-button routerLink="/offer">Offer</a>
-      <a mat-button routerLink="/contact">Contact</a>
+      <a mat-button routerLink="/login">Login</a>
+      <a mat-button routerLink="/register">SignUp</a>
     </div>
-
   </mat-toolbar>
  
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <app-left-panel></app-left-panel>
+    </mat-drawer>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-container>
 </div>
