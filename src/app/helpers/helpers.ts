@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject,throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { APIResponseDto, Data } from '../models/Response';
+import { APIResponseDto, UserInfo } from '../models/Response';
 import { NotificationService } from '../services/notification.service'
 
 @Injectable({
@@ -45,12 +45,14 @@ export class Helpers  {
     }   
     private setStorageToken(value:any):void {
         var obj:any = JSON.parse(value);
-        var user:Data = obj.data;  
+        var user:UserInfo = obj.data;  
         if(user.isVerified){
         window.localStorage['user'] = JSON.stringify(user);
         this.authenticationChanged.next(this.isAuthenticated());
+        debugger
         }
         else{
+            debugger
             const errMsg="User Not Verified, Please check mail link and verfiy account.";
             this.notificationService.showError(errMsg,"Error!"); 
              throwError(errMsg);    

@@ -53,8 +53,7 @@ export class BaseService {
       {
       var result =  this.http.post<APIResponseDto>(url,body,this.header()).pipe(
         map((res:APIResponseDto)=>res),
-        catchError(this.handleError.bind(this)));    
-        debugger    
+        catchError(this.handleError.bind(this)));      
         return result;
       }
  }

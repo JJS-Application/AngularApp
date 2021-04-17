@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { TokenService } from '../../../services/token.service';
-import { Helpers } from '../../../helpers/helpers';
-import {AppModule} from '../../../app.module'
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginViewModel } from 'src/app/models/Auth/LoginViewModel';
+import { AuthenticationService } from 'src/app/services/authentication-service.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +13,17 @@ import { LoginViewModel } from 'src/app/models/Auth/LoginViewModel';
 export class LoginComponent implements OnInit {
  
   constructor(private formBuilder: FormBuilder,
-    private helpers: Helpers,
      private router: Router, 
-     private tokenService: TokenService) { }
+     private route: ActivatedRoute,
+     private authService: AuthenticationService) { }
 
   formGroup: FormGroup;
-
+  returnUrl: string;
+  error = '';
   ngOnInit() {
     this.createForm();
+            // get return url from route parameters or default to '/'
+            this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   createForm() {
@@ -52,12 +54,14 @@ export class LoginComponent implements OnInit {
     const login: LoginViewModel = new LoginViewModel();
     login.Email =this.formGroup.controls['username']?.value;
     login.Password =this.formGroup.controls['password']?.value;
-    this.tokenService.auth(login).subscribe((token: any) => {
-      debugger
-      this.helpers.setToken(token);
-      this.router.navigate(['/dashboard']);
-     var a= this.helpers.getToken();
-     debugger
-    });
+    this.authService.login(login)
+    .pipe(first())
+    .subscribe(
+        data => {
+            this.router.navigate([this.returnUrl]);
+        },
+        error => {
+            this.error = error;
+        });
   }
 } 

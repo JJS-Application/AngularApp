@@ -9,11 +9,11 @@ export class APIResponseDto{
   HasPreviousPage: boolean;
   HasNextPage: boolean;
 }
-export class Data {
+export class UserInfo {
   id: string;
   userName: string;
   email: string;
   roles: string[];
   isVerified: boolean;
-  jwToken: string;
+  jwToken?: string;
 }

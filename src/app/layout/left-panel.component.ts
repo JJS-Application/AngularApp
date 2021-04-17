@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./left-panel.component.css']
 })
 export class LeftPanelComponent implements OnInit {
-  title = "Jaipur  job seeker"
+  title = "JJS"
   constructor() {     
   }
 

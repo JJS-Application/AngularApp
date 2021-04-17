@@ -1,7 +1,7 @@
 import { Component, AfterViewInit,  } from '@angular/core';
 import {Helpers} from './helpers/helpers'
 import { Subscription } from 'rxjs';
-import { delay, startWith } from 'rxjs/operators';
+import { AuthenticationService } from './services/authentication-service.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +10,15 @@ import { delay, startWith } from 'rxjs/operators';
 })
 export class AppComponent implements AfterViewInit {
   public subscription: Subscription ;
-  public authentication: boolean;
-  constructor(private helpers: Helpers) {
+  public authentication: boolean=false;
+  constructor(private helpers: Helpers,private authenticationService: AuthenticationService,) {
   }
-  ngAfterViewInit() {
-    this.subscription = this.helpers.isAuthenticationChanged().pipe(
-      startWith(this.helpers.isAuthenticated()),
-      delay(0)).subscribe((value: boolean) =>
-        this.authentication = value
-      );
+  ngAfterViewInit() {    
+      const currentUser = this.authenticationService.currentUserValue;
+      if (currentUser) {
+        // logged in so return true
+        this.authentication = true
+    }
   }
   title = 'Jaipur Job seeker';
   ngOnDestroy() {

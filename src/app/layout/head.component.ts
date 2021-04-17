@@ -7,7 +7,7 @@ import {AppModule} from '../app.module'
   styleUrls: ['./head.component.css']
 })
 export class HeadComponent implements OnInit {
-  title = "Jaipur  job seeker"
+  title = "JJS"
   constructor() { }
 
   ngOnInit(): void {

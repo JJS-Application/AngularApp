@@ -6,17 +6,17 @@ import { AppComponent } from './app.component';
 
 
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';;
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeadComponent } from './layout/head.component';
 import { LeftPanelComponent } from './layout/left-panel.component'
 
 
-import { LogoutComponent }   from './components/account/login/logout.component';
+import { LogoutComponent }   from './components/account/logout.component';
 import { DashboardComponent }   from './components/dashboard/dashboard.component';
 import { UserComponent }      from './components/users/user.component';
-import { LoginComponent } from './components/account/login/login.component';
+import { LoginComponent } from './components/account/login.component';
 import { Helpers } from './helpers/helpers';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 
@@ -35,7 +35,9 @@ import { CommonModule } from '@angular/common/'
 import { MatTableModule } from '@angular/material/table'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ErrorInterceptor } from './services/error-interceptor.service';
+import { BearerAuthInterceptor } from './services/auth-interceptor.service';
 
 
 @NgModule({
@@ -66,7 +68,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     MatToolbarModule,
     MatIconModule,
     MatCardModule, 
-     CommonModule, 
+    CommonModule, 
     MatToolbarModule,
     MatButtonModule, 
     MatCardModule,
@@ -76,6 +78,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     MatMenuModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    FlexLayoutModule,
     ToastrModule.forRoot()
   ],
   exports:[
@@ -90,7 +93,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     MatIconModule,
     MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
